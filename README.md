@@ -1,5 +1,5 @@
 ## 简介
-CodeGenerator 是一个基于Spring Boot & MyBatis的种子项目，用于快速构建中小型API、RESTful API项目，该种子项目已经有过多个真实项目的实践，稳定、简单、快速，使我们摆脱那些重复劳动，专注于业务代码的编写，减少加班。
+CodeGenerator 是一个基于Spring Boot & MyBatis的种子项目，用于快速构建中小型API、RESTful API项目，该种子项目已经有过多个真实项目的实践，稳定、简单、快速，使我们摆脱那些重复劳动，专注于业务代码的编写，减少加班。操作演示请看博客：[Mybatis代码生成器（纯Java）](http://blog.csdn.net/m0_37701381/article/details/79473045)
 
 ## 特征
 - 最佳实践的项目结构、配置文件、精简的POM
