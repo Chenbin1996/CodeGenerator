@@ -14,7 +14,6 @@ import javax.annotation.Resource;
 /**
  * ${description}-ServiceImpl接口实现类
  * @author ${author} on ${date}
- * @version 3.0.0
  */
 @Service
 @Transactional
