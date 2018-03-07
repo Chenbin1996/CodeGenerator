@@ -1,24 +1,29 @@
-# CodeGenerator
-CodeGenerator
-mybatis代码生成器
+## 简介
+CodeGenerator 是一个基于Spring Boot & MyBatis的种子项目，用于快速构建中小型API、RESTful API项目，该种子项目已经有过多个真实项目的实践，稳定、简单、快速，使我们摆脱那些重复劳动，专注于业务代码的编写，减少加班。下面是一个简单的使用演示，看如何基于本项目在短短几十秒钟内实现一套简单的API，并运行提供服务。
 
-mybatis 插件自动生成mapper接口以及xml文件的基础上，进行了封装，使用了通用的mapper增删改查，类似JPA的操作，继承了通用mapper；
-
-除了mapper接口和xml映射文件生成以外，还可以自动生成service接口以及实现类，实体类，dto数据传输类，controller类；
-
-配置了Swagger UI框架，用于测试时候可视化使用，数据返回是用了阿里的fastJson；
-
-上一个版本还需要自己修改包路径等，怕使用的人会不明白，故进行了优化，只需要在CodeGenerator类的main方法中，genCode里修改几个参数就可以，不需要修改其他地方了；
-
-genCode参数：
-1、表的信息
-2、生成人，可以是自己的别名或者为空
-3、数据库地址，自己的服务器或是本地地址
-4、数据库帐号
-5、数据库密码
-
-如果是多表一起生成，使用main方法中的另一个数组，可添加多表一起生成；
-
-若是要把在自己项目中添加这个自动生成的话，只需要全部拷贝过去，包括pom.xml，也不需要修改其他东西，只需要修改以上所说内容，若不满足项目需求，自行修改；
-
-PS：日志打印已经配置，修改logback.xml最底部标签里自己包路径即可，打印日志的作用是打印前端传入的参数在sql中实现的语句是怎么样的，以及程序运行时的sql状态
+## 特征
+- 最佳实践的项目结构、配置文件、精简的POM
+- 统一响应结果封装及生成工具
+- 统一异常处理
+- 简单的接口签名认证
+- 常用基础方法抽象封装
+- 使用Druid Spring Boot Starter 集成Druid数据库连接池与监控
+- 使用FastJsonHttpMessageConverter，提高JSON序列化速度
+- 集成MyBatis、通用Mapper插件、PageHelper分页插件，实现单表业务零SQL
+- 提供代码生成器根据表名生成对应的Model、Mapper、MapperXML、Service、ServiceImpl、Controller等基础代码，其中Controller模板默认提供POST和RESTful两套，根据需求在```CodeGenerator.genController(tableName)```方法中自己选择，默认使用POST模板。代码模板可根据实际项目的需求来扩展，由于每个公司业务都不太一样，所以只提供了一些比较基础、通用的模板，主要是提供一个思路来减少重复代码的编写，我在实际项目的使用中，其实根据公司业务的抽象编写了大量的模板。另外，使用模板也有助于保持团队代码风格的统一
+- 有更复杂的，例如多表操作等，自行在相应的XML中写SQL
+ 
+## 快速开始
+1. 克隆项目
+2. 在任何一个有```main```方法的Java类中，输入```CodeGenerator.genCode()```
+3. 有多个参数，依次是二维数组，关于SQL表的数据(详情看CodeGenerator类中的main方法)；作者名；数据库地址；数据库帐号；数据库密码
+4. 如需多表只需要修改二维数组，然后启动main方法，目录就会有自动生成的类(如果没有手动刷新)
+5. 对开发环境配置文件```application-dev.properties```进行配置，启动项目，Have Fun！
+ 
+## 开发建议
+- 表名，建议使用小写，多个单词使用下划线拼接
+- Model内成员变量建议与表字段数量对应，如需扩展成员变量（比如连表查询）建议创建DTO，否则需在扩展的成员变量上加```@Transient```注解，详情见[通用Mapper插件文档说明](https://mapperhelper.github.io/docs/2.use/)
+- 建议业务失败直接使用```ServiceException("message")```抛出，由统一异常处理器来封装业务失败的响应结果，比如```throw new ServiceException("该手机号已被注册")```，会直接被封装为```{"code":400,"message":"该手机号已被注册"}```返回，无需自己处理，尽情抛出
+- 需要工具类的话建议先从```apache-commons-*```和```guava```中找，实在没有再造轮子或引入类库，尽量精简项目
+- 开发规范建议遵循阿里巴巴Java开发手册（[最新版下载](https://github.com/lihengming/java-codes/blob/master/shared-resources/%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4Java%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8CV1.3.0.pdf))
+- 建议在公司内部使用[ShowDoc](https://github.com/star7th/showdoc)、[SpringFox-Swagger2](https://github.com/springfox/springfox) 、[RAP](https://github.com/thx/RAP)等开源项目来编写、管理API文档
