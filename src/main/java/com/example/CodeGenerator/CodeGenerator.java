@@ -138,7 +138,7 @@ public class CodeGenerator {
 
         TableConfiguration tableConfiguration = new TableConfiguration(context);
         tableConfiguration.setTableName(tableName);
-        if (StringUtils.isNotEmpty(domainName))tableConfiguration.setDomainObjectName(domainName);
+        if (StringUtils.isNotEmpty(domainName)){tableConfiguration.setDomainObjectName(domainName);}
         tableConfiguration.setGeneratedKey(new GeneratedKey("id", "Mysql", true, null));
         context.addTableConfiguration(tableConfiguration);
 
@@ -161,7 +161,7 @@ public class CodeGenerator {
         if (generator.getGeneratedJavaFiles().isEmpty() || generator.getGeneratedXmlFiles().isEmpty()) {
             throw new RuntimeException("生成Domain和Mapper失败：" + warnings);
         }
-        if (StringUtils.isEmpty(domainName)) domainName = tableNameConvertUpperCamel(tableName);
+        if (StringUtils.isEmpty(domainName)) {domainName = tableNameConvertUpperCamel(tableName);}
         System.out.println(domainName + ".java 生成成功");
         System.out.println(domainName + "Mapper.java 生成成功");
         System.out.println(domainName + "Mapper.xml 生成成功");
