@@ -53,13 +53,10 @@ public class MybatisConfig {
 
         // 配置通用Mapper，详情请查阅官方文档
         Properties properties = new Properties();
-        properties.setProperty("`", ProjectConstant.MAPPER_INTERFACE_REFERENCE);
+        properties.setProperty("mappers", ProjectConstant.MAPPER_INTERFACE_REFERENCE);
         // insert、update是否判断字符串类型!='' 即 test="str != null"表达式内是否追加 and str != ''
         properties.setProperty("notEmpty", "false");    
-        //使用UUID作為主鍵
-        properties.setProperty("IDENTITY", "SELECT REPLACE(UUID(),\"-\",\"\")");
-        //将查询主键作为前置操作
-        properties.setProperty("ORDER","BEFORE");
+        properties.setProperty("IDENTITY", "MYSQL");
         mapperScannerConfigurer.setProperties(properties);
 
         return mapperScannerConfigurer;
